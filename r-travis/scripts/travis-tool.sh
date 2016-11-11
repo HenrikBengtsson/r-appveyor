@@ -136,9 +136,10 @@ BootstrapMacOptions() {
 EnsureDevtools() {
     if ! Rscript -e 'if (!("devtools" %in% rownames(installed.packages()))) q(status=1)' ; then
         # Install devtools and testthat.
-        RBinaryInstall testthat curl
-        RSourceInstall remotes
-        Rscript -e "library(remotes);install_url('https://raw.githubusercontent.com/krlmlr/devtools/develop/bin/devtools_1.12.0.9001.zip')"
+        RBinaryInstall testthat
+        curl -O https://raw.githubusercontent.com/krlmlr/devtools/develop/bin/devtools_1.12.0.9001.zip
+        Rscript -e 'install.packages("devtools_1.12.0.9001.zip", repos = NULL)'
+        rm devtools_1.12.0.9001.zip
     fi
 }
 
