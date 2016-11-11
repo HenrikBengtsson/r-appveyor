@@ -136,7 +136,8 @@ BootstrapMacOptions() {
 EnsureDevtools() {
     if ! Rscript -e 'if (!("devtools" %in% rownames(installed.packages()))) q(status=1)' ; then
         # Install devtools and testthat.
-        RBinaryInstall remotes testthat
+        RBinaryInstall testthat
+        RSourceInstall remotes
         Rscript -e "remotes::install_url('https://github.com/krlmlr/devtools/raw/develop/bin/devtools_1.12.0.9001.zip')"
     fi
 }
@@ -184,6 +185,16 @@ RInstall() {
 
     echo "Installing R package(s): $@"
     Rscript -e 'install.packages(commandArgs(TRUE), repos="'"${CRAN}"'", INSTALL_opts="--no-multiarch")' "$@"
+}
+
+RSourceInstall() {
+    if [[ "" == "$*" ]]; then
+        echo "No arguments to r_install"
+        exit 1
+    fi
+
+    echo "Installing R package(s): $@"
+    Rscript -e 'install.packages(commandArgs(TRUE), repos="'"${CRAN}"'", INSTALL_opts="--no-multiarch", type="source")' "$@"
 }
 
 BiocInstall() {
