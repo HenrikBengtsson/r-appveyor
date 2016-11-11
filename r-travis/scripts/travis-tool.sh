@@ -138,7 +138,7 @@ EnsureDevtools() {
         # Install devtools and testthat.
         RBinaryInstall testthat
         RSourceInstall remotes
-        Rscript -e "remotes::install_url('https://github.com/krlmlr/devtools/raw/develop/bin/devtools_1.12.0.9001.zip')"
+        Rscript -e "library(remotes);install_url('https://github.com/krlmlr/devtools/raw/develop/bin/devtools_1.12.0.9001.zip')"
     fi
 }
 
