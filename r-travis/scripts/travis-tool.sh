@@ -265,7 +265,7 @@ DumpLogs() {
 
 RunTests() {
     echo "Building with: R CMD build ${R_BUILD_ARGS}"
-    if [[ "${OS:0:5}" == "MINGW" ]]; then
+    if [[ "${OS:0:5}" == "MINGW" ]] && [[ -z "${FORCE_VIGNETTES}" ]]; then
         if [[ -d vignettes ]]; then
             rm -rf vignettes
             Rscript -e "d <- read.dcf('DESCRIPTION'); d[, colnames(d) == 'VignetteBuilder'] <- NA; write.dcf(d, 'DESCRIPTION')"
